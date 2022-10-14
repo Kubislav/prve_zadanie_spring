@@ -6,17 +6,21 @@ import java.util.Map;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
+@RestController
 public class PrveZadanieApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PrveZadanieApplication.class, args);
-        final Map<TYZDEN, String> moja_mapa = createMap();
-        prejstDni(moja_mapa);
     }
 
-    public static void prejstDni(Map moja_mapa) {
+    @GetMapping
+    public static void prejstDni() {
+
+        final Map<TYZDEN, String> moja_mapa = createMap();
 
         for (TYZDEN den : TYZDEN.values())
             if (den.denVTyzdni % 2 == 0)
