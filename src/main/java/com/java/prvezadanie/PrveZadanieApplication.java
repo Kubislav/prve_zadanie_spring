@@ -1,26 +1,20 @@
 package com.java.prvezadanie;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@RestController
 public class PrveZadanieApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PrveZadanieApplication.class, args);
     }
 
-    @GetMapping
+    // TODO přesunout do service class, tu inicializovat jako komponentu a tuto metodu předělat ze static na instanční
     public static void prejstDni() {
-
-        final Map<TYZDEN, String> moja_mapa = createMap();
 
         for (TYZDEN den : TYZDEN.values())
             if (den.denVTyzdni % 2 == 0)
@@ -30,13 +24,13 @@ public class PrveZadanieApplication {
             switch (den.denVTyzdni) {
 
             case 5:
-                System.out.println(moja_mapa.get(den));
+                System.out.println(dnyZpravy.get(den));
                 break;
             case 6:
-                System.out.println(moja_mapa.get(den));
+                System.out.println(dnyZpravy.get(den));
                 break;
             case 7:
-                System.out.println(moja_mapa.get(den));
+                System.out.println(dnyZpravy.get(den));
                 break;
             }
 
@@ -44,11 +38,14 @@ public class PrveZadanieApplication {
 
     }
 
-    public static Map<TYZDEN, String> createMap() {
-        Map<TYZDEN, String> result = new HashMap<>();
-        result.put(TYZDEN.PIATOK, "Nezabudni vsetko pushnut");
-        result.put(TYZDEN.SOBOTA, "Kulturne vyzitie, upratat byt");
-        result.put(TYZDEN.NEDELA, "Oddych");
-        return Collections.unmodifiableMap(result);
+    /** Zprávy k vybraným dnům v týdnu */
+    public static Map<TYZDEN, String> dnyZpravy;
+
+    /** Inicializace mapy při classloadingu */
+    static {
+        dnyZpravy = new HashMap<>();
+        dnyZpravy.put(TYZDEN.PIATOK, "Nezabudni vsetko pushnut");
+        dnyZpravy.put(TYZDEN.SOBOTA, "Kulturne vyzitie, upratat byt");
+        dnyZpravy.put(TYZDEN.NEDELA, "Oddych");
     }
 }

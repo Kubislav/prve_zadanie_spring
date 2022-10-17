@@ -2,8 +2,6 @@ package com.java.prvezadanie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Map;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,10 +11,11 @@ class PrveZadanieApplicationTests {
     @Test
     void contextLoads() {
 
-        PrveZadanieApplication.main(new String[] { "" });
-        // PrveZadanieApplication.prejstDni();
-        Map<TYZDEN, String> tmp = PrveZadanieApplication.createMap();
-        assertEquals(tmp.get(TYZDEN.PIATOK), "Nezabudni vsetko pushnut");
+        assertEquals(PrveZadanieApplication.dnyZpravy.get(TYZDEN.PIATOK), "Nezabudni vsetko pushnut");
+
+        // TODO po předělání autowirovat novou service a volat její instanční metodu
+        PrveZadanieApplication.prejstDni();
+
         System.out.println("koniec testu");
     }
 
